@@ -12,6 +12,8 @@
             <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0"  TextWrapping="Wrap" Text="" x:Name="outputTB" VerticalAlignment="Top" Width="500"/>
 
         </ScrollViewer>
+        <Canvas x:Name="canvasTSP" HorizontalAlignment="Left" Height="949" Margin="505,10,0,0" VerticalAlignment="Top" Width="1254" RenderTransformOrigin="-0.88,-0.32"/>
+        <Button Content="Reset" HorizontalAlignment="Left" Margin="1764,10,0,0" VerticalAlignment="Top" Width="118" Height="82" Click="Button_Click"/>
 
     </Grid>
 </Window>

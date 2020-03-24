@@ -90,6 +90,14 @@ namespace TravellingSalesmanProblem
         public int[] CitySequence { get; internal set; }
         public double Score { get; internal set; }
 
+        public City[] Cities
+        {
+            get
+            {
+                return problem.Cities;
+            }
+        }
+
         public SwapSolution(Problem _problem, Solution _initialSolution)
         {
             problem = _problem;
@@ -111,7 +119,7 @@ namespace TravellingSalesmanProblem
 
         private void SwapCities(double _temperature)
         {
-            int swapCounter = (int)Math.Ceiling(_temperature * CitySequence.Length);
+            int swapCounter = (int)Math.Ceiling(_temperature * CitySequence.Length) + 1;
             if (swapCounter > CitySequence.Length * 10)
             {
                 swapCounter = CitySequence.Length * 10;
@@ -120,11 +128,11 @@ namespace TravellingSalesmanProblem
             Random rng = problem.RNG;
 
 
-
+            //swapCounter = 1;
             for (int i = 0; i < swapCounter; i++)
             {
-                int first = rng.Next(1, CitySequence.Length - 1);
-                int second = rng.Next(1, CitySequence.Length - 1);
+                int first = rng.Next(CitySequence.Length);
+                int second = rng.Next(CitySequence.Length);
 
                 int holder = CitySequence[first];
                 CitySequence[first] = CitySequence[second];

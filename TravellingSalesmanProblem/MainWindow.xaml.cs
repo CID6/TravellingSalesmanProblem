@@ -85,10 +85,14 @@ namespace TravellingSalesmanProblem
 
         public void Main2()
         {
+            outputTB.Text = "";
+            canvasTSP.Children.Clear();
+
+
             //problem jest instancją N miast o losowych koordynatach. "a problem instance π"
             //ilosc węzłów jest parametrem. Wartości krawędzi są losowe. Każde miasto ma swoje własne, losowe koordynaty. Wartości krawędzi to fizyczny dystans
             //między nimi.
-            Problem problem = new Problem(30);
+            Problem problem = new Problem(20);
             //Solution jest losowym rozwiazaniem.
             Solution initialSolution = new Solution(problem);   //"Initial Solution s 0"
             SwapSolution bestSolution = new SwapSolution(problem, initialSolution);
@@ -117,7 +121,7 @@ namespace TravellingSalesmanProblem
                 double delta = newSolution.Score - bestSolution.Score;
 
                 //Acceptance Criterion. W tym przypadku, Metropolis-based criteria. Na zajęciach było wspomniane, że takiego musimy użyć.
-                if (delta < 0 || (delta > 0 && Math.Exp(-delta / temperature) > problem.RNG.NextDouble()))
+                if (delta < 0 || (delta > 0.1 && Math.Exp(-delta / temperature) > problem.RNG.NextDouble()))
                 {
                     bestSolution = newSolution;
 
@@ -133,6 +137,64 @@ namespace TravellingSalesmanProblem
                 temperature = temperature * coolingRate;
 
             }
+
+
+            //rysowanie
+            Ellipse[] dots = new Ellipse[bestSolution.CitySequence.Length];
+
+            for(int i = 0; i<bestSolution.CitySequence.Length; i++)
+            {
+                dots[i] = new Ellipse
+                {
+                    Stroke = new SolidColorBrush(Colors.Red),
+                    StrokeThickness = 3,
+                    Height = 10,
+                    Width = 10,
+                    Fill = new SolidColorBrush(Colors.Red),
+
+
+                    Margin = new Thickness(bestSolution.Cities[bestSolution.CitySequence[i]].X * 10, canvasTSP.Height - bestSolution.Cities[bestSolution.CitySequence[i]].Y * 10, 0, 0)
+                };
+
+                canvasTSP.Children.Add(dots[i]);
+            }
+
+            Line[] lines = new Line[bestSolution.CitySequence.Length];
+
+            for (int i = 0; i < bestSolution.CitySequence.Length - 1; i++)
+            {
+                Thickness margin1 = dots[i].Margin;
+                Thickness margin2 = dots[i + 1].Margin;
+                lines[i] = new Line
+                {
+                    Stroke = Brushes.Black,
+                    StrokeThickness = 1,
+                    X1 = margin1.Left,
+                    X2 = margin2.Left,
+                    Y1 = margin1.Top,
+                    Y2 = margin2.Top
+                };
+
+                canvasTSP.Children.Add(lines[i]);
+            }
+
+            Line lastLine = new Line
+            {
+                Stroke = Brushes.Black,
+                StrokeThickness = 1,
+                X1 = dots[dots.Length-1].Margin.Left,
+                X2 = dots[0].Margin.Left,
+                Y1 = dots[dots.Length - 1].Margin.Top,
+                Y2 = dots[0].Margin.Top
+            };
+
+            canvasTSP.Children.Add(lastLine);
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Main2();
         }
     }
 }
