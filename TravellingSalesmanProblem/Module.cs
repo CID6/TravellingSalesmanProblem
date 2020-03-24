@@ -45,7 +45,7 @@ namespace TravellingSalesmanProblem
     {
         Problem problem;
         public int[] CitySequence { get; internal set; }
-        public double Score { get; internal set;  }
+        public double Score { get; internal set; }
 
         public Solution(Problem _problem)
         {
@@ -62,7 +62,7 @@ namespace TravellingSalesmanProblem
             int value = CitySequence[0];
             for (int i = 1; i < CitySequence.Length; i++)
             {
-                if(CitySequence[i] == 0)
+                if (CitySequence[i] == 0)
                 {
                     CitySequence[0] = 0;
                     CitySequence[i] = value;
@@ -81,6 +81,68 @@ namespace TravellingSalesmanProblem
             Score = suma;
         }
 
+    }
+
+    class SwapSolution
+    {
+
+        Problem problem;
+        public int[] CitySequence { get; internal set; }
+        public double Score { get; internal set; }
+
+        public SwapSolution(Problem _problem, Solution _initialSolution)
+        {
+            problem = _problem;
+            CitySequence = new int[problem.Cities.Length];
+            Array.Copy(_initialSolution.CitySequence, CitySequence, CitySequence.Length);
+
+            CalculateScore();
+        }
+
+        public SwapSolution(Problem _problem, SwapSolution _bestSolution, double _currentTemperature)
+        {
+            problem = _problem;
+            CitySequence = new int[problem.Cities.Length];
+            Array.Copy(_bestSolution.CitySequence, CitySequence, CitySequence.Length);
+
+            SwapCities(_currentTemperature);
+            CalculateScore();
+        }
+
+        private void SwapCities(double _temperature)
+        {
+            int swapCounter = (int)Math.Ceiling(_temperature * CitySequence.Length);
+            if (swapCounter > CitySequence.Length * 10)
+            {
+                swapCounter = CitySequence.Length * 10;
+            }
+
+            Random rng = problem.RNG;
+
+
+
+            for (int i = 0; i < swapCounter; i++)
+            {
+                int first = rng.Next(1, CitySequence.Length - 1);
+                int second = rng.Next(1, CitySequence.Length - 1);
+
+                int holder = CitySequence[first];
+                CitySequence[first] = CitySequence[second];
+                CitySequence[second] = holder;
+            }
+
+        }
+
+        private void CalculateScore()
+        {
+            double suma = 0;
+            for (int i = 0; i < CitySequence.Length - 1; i++)
+            {
+                suma += City.Distance(problem.Cities[CitySequence[i]], problem.Cities[CitySequence[i + 1]]);
+            }
+            suma += City.Distance(problem.Cities[CitySequence[CitySequence.Length - 1]], problem.Cities[CitySequence[0]]);
+            Score = suma;
+        }
     }
 
 }
