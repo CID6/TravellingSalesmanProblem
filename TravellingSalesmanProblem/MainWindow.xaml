@@ -13,7 +13,12 @@
 
         </ScrollViewer>
         <Canvas x:Name="canvasTSP" HorizontalAlignment="Left" Height="949" Margin="505,10,0,0" VerticalAlignment="Top" Width="1254" RenderTransformOrigin="-0.88,-0.32"/>
-        <Button Content="Reset" HorizontalAlignment="Left" Margin="1764,10,0,0" VerticalAlignment="Top" Width="118" Height="82" Click="Button_Click"/>
+
+        <TextBox x:Name="cityBox" HorizontalAlignment="Left" Height="23" Margin="1840,82,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="42"/>
+        <Button Content="Reset" HorizontalAlignment="Left" Margin="1764,10,0,0" VerticalAlignment="Top" Width="118" Height="67" Click="Button_Click_3"/>
+        <CheckBox Content="Same dataset" HorizontalAlignment="Left" Margin="1764,110,0,0" VerticalAlignment="Top" x:Name="dataCM" IsChecked="False"/>
+        <CheckBox Content="Trace solution" HorizontalAlignment="Left" Margin="1764,130,0,0" VerticalAlignment="Top" Width="98" IsChecked="True" x:Name="debugCM"/>
+        <TextBlock HorizontalAlignment="Left" Height="23" Margin="1764,82,0,0" TextWrapping="Wrap" Text="N of cities:" VerticalAlignment="Top" Width="71"/>
 
     </Grid>
 </Window>
