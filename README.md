@@ -1,4 +1,5 @@
 # TravellingSalesmanProblem
 
-Zadanie na Sztuczną Inteligencję - deadline 23 marca.
-- Cezary Gowiński
+Roziązanie problemu komiwojażera używając symulowanego wyrzażania.
+
+Travelling Salesman Problem using simulated annealing in C#.
