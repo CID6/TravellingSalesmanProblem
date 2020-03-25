@@ -2,4 +2,4 @@
 
 Roziązanie problemu komiwojażera używając symulowanego wyrzażania.
 
-Travelling Salesman Problem using simulated annealing in C#.
+Travelling salesman problem solved using simulated annealing in C#.
